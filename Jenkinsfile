@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy') {
             agent any
             steps {
-                withDockerServer([credentialsId: 'ProdDocker', uri: ${DOCKER_SERVER}]) {
+                withDockerServer([credentialsId: 'ProdDocker', uri: "${DOCKER_SERVER}"]) {
                     sh '''
                     #!/bin/bash
                     docker build -f ./docker/prod/Dockerfile --build-arg GIT_HASH=$(git log --pretty=format:'%H' -n 1) --build-arg VERSION=$(git describe --tags --abbrev=0) --build-arg USER=$(id -u -n) --build-arg DATE="$(date)" -t go-app .
