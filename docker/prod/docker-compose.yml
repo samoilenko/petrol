@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  petrol_server:
+    image: petrol-app
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "10"
+    security_opt:
+      - apparmor:unconfined
+    environment:
+      - PETROL_TELEGRAM_BOT_TOKEN=TELEGRAM_BOT_TOKEN
+      - PETROL_TELEGRAM_WEBHOOK_URL=TELEGRAM_WEBHOOK_URL
+      - PETROL_STORAGE_PATH=PETROL_STORAGE_PATH
+    volumes:
+      - type: volume
+        source: petrol-data
+        target: /storage
+
+#networks:
+#  default:
+#    external:
+#      name: prod_network
+
+volumes:
+  petrol-data:
