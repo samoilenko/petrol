@@ -18,10 +18,10 @@ services:
         source: petrol-data
         target: /storage
 
-#networks:
-#  default:
-#    external:
-#      name: prod_network
+networks:
+  default:
+    external:
+      name: prod_network
 
 volumes:
   petrol-data:
