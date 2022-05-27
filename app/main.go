@@ -24,7 +24,6 @@ func main() {
 	fmt.Println("build.Time:\t", build.Time)
 	fmt.Println("build.User:\t", build.User)
 	fmt.Println("build.Hash:\t", build.Hash)
-	fmt.Println("Token\t", os.Getenv("PETROL_TELEGRAM_BOT_TOKEN"))
 
 	handler, err := os.OpenFile(os.Getenv("PETROL_STORAGE_PATH"), os.O_CREATE|os.O_RDWR, 0644)
 	if err != nil {
