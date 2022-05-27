@@ -24,7 +24,7 @@ pipeline {
                 withDockerServer([credentialsId: 'ProdDocker', uri: "${DOCKER_SERVER}"]) {
                     sh '''
                     #!/bin/bash
-                    docker build -f ./docker/prod/Dockerfile --build-arg GIT_HASH=$(git log --pretty=format:'%H' -n 1) --build-arg VERSION=$(git describe --tags --abbrev=0) --build-arg USER=$(id -u -n) --build-arg DATE="$(date)" -t go-app .
+                    docker build -f ./docker/prod/Dockerfile --build-arg GIT_HASH=$(git log --pretty=format:'%H' -n 1) --build-arg VERSION=$(git describe --tags --abbrev=0) --build-arg USER=$(id -u -n) --build-arg DATE="$(date)" -t petrol-app .
                     ROOT_API_DIR=${JENKINS_HOME}/jobs/${JOB_NAME}/
 
                     FILE=$ROOT_API_DIR"petrolVersion.txt"
