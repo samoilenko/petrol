@@ -37,6 +37,7 @@ pipeline {
 
                     export COMPOSE_PROJECT_NAME=stack${VERSION}
 
+                    echo "${COMPOSE_PROJECT_NAME}"
                     echo "Turn off old servers"
                     docker-compose -f ./docker/prod/docker-compose.yml down
 
