@@ -1,6 +1,8 @@
 version: '3.9'
 services:
   petrol_server:
+    env_file:
+      - .env
     image: petrol-app
     logging:
       driver: json-file
@@ -10,9 +12,9 @@ services:
     security_opt:
       - apparmor:unconfined
     environment:
-      - PETROL_TELEGRAM_BOT_TOKEN=PETROL_TELEGRAM_BOT_TOKEN
-      - PETROL_TELEGRAM_WEBHOOK_URL=PETROL_TELEGRAM_WEBHOOK_URL
-      - PETROL_STORAGE_PATH=PETROL_STORAGE_PATH
+      - PETROL_TELEGRAM_BOT_TOKEN=$PETROL_TELEGRAM_BOT_TOKEN
+      - PETROL_TELEGRAM_WEBHOOK_URL=$PETROL_TELEGRAM_WEBHOOK_URL
+      - PETROL_STORAGE_PATH=$PETROL_STORAGE_PATH
     volumes:
       - type: volume
         source: petrol-data
