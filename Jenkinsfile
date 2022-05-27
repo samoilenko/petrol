@@ -35,17 +35,16 @@ pipeline {
 
                     VERSION=`cat $FILE`
 
-                    export COMPOSE_PROJECT_NAME=stack${VERSION}
-
-                    echo "${COMPOSE_PROJECT_NAME}"
                     echo "Turn off old servers"
+                    STACK_NUMBER=$((($VERSION+1)%2))
+                    export COMPOSE_PROJECT_NAME=stack${STACK_NUMBER}
+                    echo "${STACK_NUMBER}"
                     docker-compose -f ./docker/prod/docker-compose.yml down
 
+                    echo "Making containers"
                     echo "Get new version number"
                     STACK_NUMBER=$(($VERSION%2))
-
                     export COMPOSE_PROJECT_NAME=stack${STACK_NUMBER}
-                    echo "Making containers"
                     docker-compose -f ./docker/prod/docker-compose.yml up --build -d
 
                     #reset prefix
