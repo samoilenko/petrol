@@ -33,26 +33,22 @@ pipeline {
                        echo 0 > $FILE
                     fi
 
-                    echo "Get new version number"
                     VERSION=`cat $FILE`
+
+                    export COMPOSE_PROJECT_NAME=stack${VERSION}
+
+                    echo "Turn off old servers"
+                    docker-compose -f ./docker/prod/docker-compose.yml down
+
+                    echo "Get new version number"
                     STACK_NUMBER=$(($VERSION%2))
 
                     export COMPOSE_PROJECT_NAME=stack${STACK_NUMBER}
-
                     echo "Making containers"
-                    docker-compose -f ./docker/prod/docker-compose.yml down
                     docker-compose -f ./docker/prod/docker-compose.yml up --build -d
-
-                    echo "Copy nginx conf"
-                    cp ./docker/prod/conf/nginx/nginx-template.conf ./docker/prod/conf/nginx/nginx.conf
-                    sed -i s#{{stack}}#${COMPOSE_PROJECT_NAME}#g ./docker/prod/conf/nginx/nginx.conf
 
                     #reset prefix
                     export COMPOSE_PROJECT_NAME=
-
-                    # reload nginx
-                    docker cp ./docker/prod/conf/nginx/nginx.conf nginx:/etc/nginx/conf.d/go.api.conf
-                    docker exec nginx nginx -s reload
 
                     echo $(($VERSION+1)) > $FILE
                     '''
