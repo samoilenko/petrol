@@ -2,11 +2,12 @@ pipeline {
     agent none
     parameters {
         string(name: 'PETROL_STORAGE_PATH', defaultValue: '/storage/petrol.data', description: 'Path to the file')
-        string(name: 'DOCKER_SERVER', description: 'Docker server URI + PORT')
+        string(name: 'BUMP_PART', defaultValue: 'patch', description: 'major|minor|patch|release|prerel [<prerel>]|build <build>')
     }
     environment {
         PETROL_TELEGRAM_BOT_TOKEN = credentials('PETROL_TELEGRAM_BOT_TOKEN')
         PETROL_TELEGRAM_WEBHOOK_URL = credentials('PETROL_TELEGRAM_WEBHOOK_URL')
+        DOCKER_SERVER_URI = credentials('DOCKER_SERVER_URI')
     }
     stages {
         stage('Bump version') {
@@ -21,7 +22,7 @@ pipeline {
         stage('Deploy') {
             agent any
             steps {
-                withDockerServer([credentialsId: 'ProdDocker', uri: "${DOCKER_SERVER}"]) {
+                withDockerServer([credentialsId: 'ProdDocker', uri: "${DOCKER_SERVER_URI}"]) {
                     sh '''
                     #!/bin/bash
                     docker build -f ./docker/prod/Dockerfile --build-arg GIT_HASH=$(git log --pretty=format:'%H' -n 1) --build-arg VERSION=$(git describe --tags --abbrev=0) --build-arg USER=$(id -u -n) --build-arg DATE="$(date)" -t petrol-app .

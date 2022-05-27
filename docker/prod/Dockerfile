@@ -16,6 +16,5 @@ FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=builder /app .
-EXPOSE 8080
-EXPOSE 9090
+
 CMD ["./app"]
