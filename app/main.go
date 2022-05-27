@@ -34,8 +34,8 @@ func main() {
 
 	shutdownCh := makeShutdownCh()
 	var telegramBotToken infrastructure.TelegramToken
-	telegramBotToken = infrastructure.TelegramToken(os.Getenv("TELEGRAM_BOT_TOKEN"))
-	telegramBot, err := infrastructure.NewTelegramBot(telegramBotToken, "")
+	telegramBotToken = infrastructure.TelegramToken(os.Getenv("PETROL_TELEGRAM_BOT_TOKEN"))
+	telegramBot, err := infrastructure.NewTelegramBot(telegramBotToken, os.Getenv("PETROL_TELEGRAM_WEBHOOK_URL"))
 
 	if err != nil {
 		panic(err)
