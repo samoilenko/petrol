@@ -39,7 +39,7 @@ func (pb *PetrolBinaryRepository) SaveAll(petrolStations map[string]*PetrolStati
 }
 
 func (pb *PetrolBinaryRepository) savePetrolStations(petrolInfo *PetrolStationInfo) error {
-	for _, i := range []string{petrolInfo.Id, petrolInfo.PetrolType, petrolInfo.State, petrolInfo.Address} {
+	for _, i := range []string{petrolInfo.Id, petrolInfo.Address, petrolInfo.PetrolType, petrolInfo.State} {
 		if err := pb.storage.WriteString(i); err != nil {
 			return err
 		}
