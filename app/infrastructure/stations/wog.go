@@ -19,7 +19,6 @@ type WOG struct {
 }
 
 func (o *WOG) Operate(res chan *infrastructure.PetrolStationInfo, delay time.Duration) {
-	// scan -> filter(is changed) -> saveToOld -> return
 	infrastructure.ExecutePipeline(
 		infrastructure.Job(func(in, out chan interface{}) {
 			for {
@@ -28,8 +27,6 @@ func (o *WOG) Operate(res chan *infrastructure.PetrolStationInfo, delay time.Dur
 				time.Sleep(delay)
 			}
 		}),
-		//infrastructure.Job(o.getWithNewState),
-		//infrastructure.Job(o.storeChanged),
 		infrastructure.Job(func(in, out chan interface{}) {
 			for data := range in {
 				res <- data.(*infrastructure.PetrolStationInfo)
@@ -37,25 +34,6 @@ func (o *WOG) Operate(res chan *infrastructure.PetrolStationInfo, delay time.Dur
 		}),
 	)
 }
-
-//
-//func (o *WOG) storeChanged(in, out chan interface{}) {
-//	for data := range in {
-//		petrolInfo := data.(*infrastructure.PetrolStationInfo)
-//		o.oldState[petrolInfo.PetrolType] = petrolInfo
-//		out <- data
-//	}
-//}
-//
-//func (o *WOG) getWithNewState(in, out chan interface{}) {
-//	for info := range in {
-//		petrol := info.(*infrastructure.PetrolStationInfo)
-//		_, exists := o.oldState[petrol.PetrolType]
-//		if !exists || o.oldState[petrol.PetrolType].State != petrol.State {
-//			out <- petrol
-//		}
-//	}
-//}
 
 func (o *WOG) scan(out chan interface{}) {
 	data, err := o.httpClient.Get(o.url)

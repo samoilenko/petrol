@@ -117,6 +117,7 @@ CLOSE:
 				infrastructure.Job(func(in, out chan interface{}) {
 					for data := range in {
 						petrol := data.(*infrastructure.PetrolStationInfo)
+						fmt.Println(petrol)
 						inform(telegramBot, petrol)
 					}
 				},
