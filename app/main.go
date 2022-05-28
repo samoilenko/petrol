@@ -7,6 +7,7 @@ import (
 	"petrol/build"
 	"petrol/infrastructure"
 	"petrol/infrastructure/stations"
+	"strconv"
 	"sync"
 	"syscall"
 	"time"
@@ -35,8 +36,17 @@ func main() {
 	shutdownCh := makeShutdownCh()
 	var telegramBotToken infrastructure.TelegramToken
 
+	chatId, err := strconv.ParseInt(os.Getenv("PETROL_CHAT_ID"), 10, 64)
+	if err != nil {
+		panic(err)
+	}
+
 	telegramBotToken = infrastructure.TelegramToken(os.Getenv("PETROL_TELEGRAM_BOT_TOKEN"))
-	telegramBot, err := infrastructure.NewTelegramBot(telegramBotToken, os.Getenv("PETROL_TELEGRAM_WEBHOOK_URL"))
+	telegramBot, err := infrastructure.NewTelegramBot(
+		telegramBotToken,
+		os.Getenv("PETROL_TELEGRAM_WEBHOOK_URL"),
+		[]int64{chatId},
+	)
 
 	if err != nil {
 		panic(err)

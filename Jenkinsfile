@@ -8,6 +8,7 @@ pipeline {
         PETROL_TELEGRAM_BOT_TOKEN = credentials('PETROL_TELEGRAM_BOT_TOKEN')
         PETROL_TELEGRAM_WEBHOOK_URL = credentials('PETROL_TELEGRAM_WEBHOOK_URL')
         DOCKER_SERVER_URI = credentials('DOCKER_SERVER_URI')
+        PETROL_CHAT_ID = credentials('PETROL_CHAT_ID')
     }
     stages {
         stage('Bump version') {
