@@ -1,7 +1,5 @@
 package infrastructure
 
-import "fmt"
-
 type PetrolBinaryRepository struct {
 	storage IBinaryStorage
 }
@@ -36,7 +34,7 @@ func (pb *PetrolBinaryRepository) SaveAll(petrolStations map[string]*PetrolStati
 			return err
 		}
 	}
-	fmt.Println(int32(len(petrolStations)))
+
 	return nil
 }
 

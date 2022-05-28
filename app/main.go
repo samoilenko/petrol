@@ -21,9 +21,9 @@ var wogUrls = []string{
 
 func main() {
 	fmt.Println("Version:\t", build.Version)
-	fmt.Println("build.Time:\t", build.Time)
-	fmt.Println("build.User:\t", build.User)
-	fmt.Println("build.Hash:\t", build.Hash)
+	fmt.Println("Time:\t", build.Time)
+	fmt.Println("User:\t", build.User)
+	fmt.Println("Hash:\t", build.Hash)
 
 	handler, err := os.OpenFile(os.Getenv("PETROL_STORAGE_PATH"), os.O_CREATE|os.O_RDWR, 0644)
 	if err != nil {
@@ -34,6 +34,7 @@ func main() {
 
 	shutdownCh := makeShutdownCh()
 	var telegramBotToken infrastructure.TelegramToken
+
 	telegramBotToken = infrastructure.TelegramToken(os.Getenv("PETROL_TELEGRAM_BOT_TOKEN"))
 	telegramBot, err := infrastructure.NewTelegramBot(telegramBotToken, os.Getenv("PETROL_TELEGRAM_WEBHOOK_URL"))
 
@@ -63,6 +64,8 @@ func main() {
 	}
 
 	go telegramBot.Start()
+
+	telegramBot.Inform(fmt.Sprintf("Version: \t%s\n Time: \t%s\n User: \t%s\n Hash: \t%s\n", build.Version, build.Time, build.User, build.Hash))
 
 CLOSE:
 	for {
