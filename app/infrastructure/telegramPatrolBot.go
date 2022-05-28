@@ -62,6 +62,6 @@ func NewTelegramBot(token TelegramToken, webhookURL string) (*TelegramBot, error
 
 	return &TelegramBot{
 		Bot:     bot,
-		chatIds: []int64{},
+		chatIds: []int64{372808292},
 	}, nil
 }
