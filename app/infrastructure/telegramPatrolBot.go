@@ -45,8 +45,9 @@ func (t *TelegramBot) Inform(message string) []error {
 	return errs
 }
 
-func NewTelegramBot(token TelegramToken, webhookURL string, initChatIds []int64) (*TelegramBot, error) {
+func NewTelegramBot(token TelegramToken, webhookURL string, initChatIds []int64, debug bool) (*TelegramBot, error) {
 	bot, err := tgbotapi.NewBotAPI(string(token))
+	bot.Debug = debug
 	if err != nil {
 		return nil, err
 	}

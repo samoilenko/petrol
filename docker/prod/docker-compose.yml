@@ -14,6 +14,7 @@ services:
       - PETROL_TELEGRAM_WEBHOOK_URL=$PETROL_TELEGRAM_WEBHOOK_URL
       - PETROL_STORAGE_PATH=$PETROL_STORAGE_PATH
       - PETROL_CHAT_ID=$PETROL_CHAT_ID
+      - ENVIRONMENT=$ENVIRONMENT
     volumes:
       - type: volume
         source: petrol-data

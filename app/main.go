@@ -21,10 +21,12 @@ var wogUrls = []string{
 }
 
 func main() {
+	environment := os.Getenv("ENVIRONMENT")
 	fmt.Println("Version:\t", build.Version)
 	fmt.Println("Time:\t", build.Time)
 	fmt.Println("User:\t", build.User)
 	fmt.Println("Hash:\t", build.Hash)
+	fmt.Println("Environment:\t", environment)
 
 	handler, err := os.OpenFile(os.Getenv("PETROL_STORAGE_PATH"), os.O_CREATE|os.O_RDWR, 0644)
 	if err != nil {
@@ -46,12 +48,13 @@ func main() {
 		telegramBotToken,
 		os.Getenv("PETROL_TELEGRAM_WEBHOOK_URL"),
 		[]int64{chatId},
+		environment == "production",
 	)
 
 	if err != nil {
 		panic(err)
 	}
-
+	telegramBot.Bot.Debug
 	mu := &sync.Mutex{}
 	allowedWOGPetrolTypes := map[string]struct{}{"М95": struct{}{}, "А95": struct{}{}}
 	httpClient := infrastructure.NewInternalHttpClient()

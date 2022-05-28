@@ -3,6 +3,7 @@ pipeline {
     parameters {
         string(name: 'PETROL_STORAGE_PATH', defaultValue: '/storage/petrol.data', description: 'Path to the file')
         string(name: 'BUMP_PART', defaultValue: 'patch', description: 'major|minor|patch|release|prerel [<prerel>]|build <build>')
+        string(name: 'ENVIRONMENT', defaultValue: 'production', description: 'Environment')
     }
     environment {
         PETROL_TELEGRAM_BOT_TOKEN = credentials('PETROL_TELEGRAM_BOT_TOKEN')

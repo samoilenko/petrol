@@ -11,7 +11,7 @@ func (pb *PetrolBinaryRepository) ReadAll() (map[string]*PetrolStationInfo, erro
 	if err := pb.storage.Read(&rowCount); err != nil {
 		return nil, err
 	}
-	fmt.Println("rowCount: ", rowCount)
+
 	res := make(map[string]*PetrolStationInfo, rowCount)
 	var i int32
 	for i = 0; i < rowCount; i++ {
@@ -19,7 +19,7 @@ func (pb *PetrolBinaryRepository) ReadAll() (map[string]*PetrolStationInfo, erro
 		if err := pb.storage.Read(info); err != nil {
 			return nil, err
 		}
-
+		fmt.Println(info)
 		res[info.Id] = info
 	}
 

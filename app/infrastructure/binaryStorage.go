@@ -80,12 +80,7 @@ func (b *BinaryStorage) Read(data interface{}) error {
 				f.SetFloat(float64(j))
 			}
 
-			if f.Type().Kind() == reflect.Struct {
-				b.Read(f)
-			}
 			if f.Type().Kind() == reflect.Ptr {
-				a := v.Elem().Field(i).Elem()
-				fmt.Println(a)
 				b.Read(v.Elem().Field(i).Interface())
 			}
 		}
