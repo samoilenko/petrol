@@ -26,3 +26,4 @@ networks:
 
 volumes:
   petrol-data:
+    external: true
