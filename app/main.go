@@ -48,13 +48,13 @@ func main() {
 		telegramBotToken,
 		os.Getenv("PETROL_TELEGRAM_WEBHOOK_URL"),
 		[]int64{chatId},
-		environment == "production",
+		environment != "production",
 	)
 
 	if err != nil {
 		panic(err)
 	}
-	telegramBot.Bot.Debug
+
 	mu := &sync.Mutex{}
 	allowedWOGPetrolTypes := map[string]struct{}{"М95": struct{}{}, "А95": struct{}{}}
 	httpClient := infrastructure.NewInternalHttpClient()
