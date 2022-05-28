@@ -58,7 +58,6 @@ func NewTelegramBot(token TelegramToken, webhookURL string, initChatIds []int64,
 		return nil, err
 	}
 
-	bot.Debug = true
 	fmt.Println(fmt.Sprintf("Telegram bot is authorized on account %s", bot.Self.UserName))
 
 	return &TelegramBot{
