@@ -1,7 +1,5 @@
 package infrastructure
 
-import "fmt"
-
 type PetrolBinaryRepository struct {
 	storage IBinaryStorage
 }
@@ -19,7 +17,7 @@ func (pb *PetrolBinaryRepository) ReadAll() (map[string]*PetrolStationInfo, erro
 		if err := pb.storage.Read(info); err != nil {
 			return nil, err
 		}
-		fmt.Println(info)
+
 		res[info.Id] = info
 	}
 

@@ -98,7 +98,9 @@ CLOSE:
 					for data := range in {
 						petrol := data.(*infrastructure.PetrolStationInfo)
 						_, exists := petrolInfo[petrol.Id]
+
 						if !exists || petrolInfo[petrol.Id].State != petrol.State {
+							fmt.Printf("'%s' '%s'", petrolInfo[petrol.Id].State, petrol.State)
 							out <- petrol
 						}
 					}
